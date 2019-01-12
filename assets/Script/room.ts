@@ -1,5 +1,3 @@
-
-
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -12,30 +10,43 @@ export default class NewClass extends cc.Component {
     UIDShow: cc.Label = null
 
 
-    onCreateRoon(){
+    onCreateRoon() {
         console.log('创建房间')
-        sio.emit('room',{
-            rqs:'create',
-            uid:uid,
+        sio.emit('room', {
+            rqs: 'create',
         })
     }
-    onJoinRoom(){
-        console.log('加入房间')
+
+    onJoinRoom() {
+        if (this.inputRoomID.string != '') {
+            console.log('加入房间', this.inputRoomID.string)
+
+            sio.emit('room', {
+                rqs: 'join',
+                rid: this.inputRoomID.string
+            })
+
+        }
     }
+
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
+
         this.UIDShow.string = `${uid}`
-        sio.on('room',function (args) {
+        sio.on('room', function (args) {
             window.rid = args.rid
-            if (args.status == 'ok'){
+            if (args.status == 'ok') {
                 cc.director.loadScene("game")
 
+            }else {
+                console.log('房间不存在')
             }
+
         })
     }
 
-    start () {
+    start() {
 
     }
 
