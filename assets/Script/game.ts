@@ -9,13 +9,16 @@ export default class NewClass extends cc.Component {
     @property(cc.Label)
     ridShow: cc.Label = null
 
+    @property(cc.Node)
+    UserList: cc.Node = []
+
 
     onLeaveRoom() {
         sio.emit('leaveRoom')
     }
 
     onLoad() {
-        this.uidShow.string = '用户: ' + uid
+        this.uidShow.string = uid
         this.ridShow.string = '房间: ' + rid
         sio.on('leaveRoom', function (args) {
             if (args.status == 'ok') {
@@ -24,7 +27,9 @@ export default class NewClass extends cc.Component {
             } else {
                 console.log('房间离开失败')
             }
-
+        })
+        sio.on('sys',function (args) {
+            console.log(args)
         })
 
     }

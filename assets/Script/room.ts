@@ -20,7 +20,6 @@ export default class NewClass extends cc.Component {
     onJoinRoom() {
         if (this.inputRoomID.string != '') {
             console.log('加入房间', this.inputRoomID.string)
-
             sio.emit('room', {
                 rqs: 'join',
                 rid: this.inputRoomID.string
@@ -39,7 +38,7 @@ export default class NewClass extends cc.Component {
             if (args.status == 'ok') {
                 cc.director.loadScene("game")
             }else {
-                console.log('房间不存在')
+                console.log('加入房间失败')
             }
 
         })
