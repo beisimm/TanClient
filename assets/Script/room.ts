@@ -38,7 +38,6 @@ export default class NewClass extends cc.Component {
             window.rid = args.rid
             if (args.status == 'ok') {
                 cc.director.loadScene("game")
-
             }else {
                 console.log('房间不存在')
             }
