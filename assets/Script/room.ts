@@ -35,9 +35,12 @@ export default class NewClass extends cc.Component {
         this.UIDShow.string = `${uid}`
         sio.on('room', function (args) {
             window.rid = args.rid
+
             if (args.status == 'ok') {
+                console.log('room.getRoomInfo', args.getRoomInfo)
+                window.getRoomInfo = args.getRoomInfo||[]
                 cc.director.loadScene("game")
-            }else {
+            } else {
                 console.log('加入房间失败')
             }
 
